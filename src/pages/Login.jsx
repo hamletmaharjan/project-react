@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-
+import {Link} from 'react-router-dom';
 
 function Login (){
 
@@ -53,14 +53,24 @@ function Login (){
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
-				<label>Email</label>
-				<input type="text" name="email" onChange={handleChange}></input> <br></br>
-				<label>Password</label>
-				<input type="password" name="password" onChange={handleChange}></input> <br></br>
-				<input type="submit" value="Login" />
-			</form>
-		</div>
+            <form  onSubmit={handleSubmit}>
+                
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
+                    {/* <small  class="form-text text-muted">We'll never share your email with anyone else.</small> */}
+                </div>
+               
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
+                </div>
+                <input type="submit" className="btn btn-primary" value="Login" />
+				<Link className="btn btn-success" to="/signup">Signup</Link>
+                {/* <button type="submit" >Create</button> */}
+            </form>
+        
+        </div>
 	)
 }
 
