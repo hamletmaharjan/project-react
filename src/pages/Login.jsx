@@ -38,6 +38,12 @@ function Login (){
 		  .then(function (response) {
 			console.log(response);
 			localStorage.setItem('token', response.data.token);
+			let userInfo = {
+				id: response.data.id,
+				name: response.data.name,
+				username: response.data.username
+			}
+			localStorage.setItem('user', JSON.stringify(userInfo));
 			// localStorage.setItem('user', )
 		  })
 		  .catch(function (error) {

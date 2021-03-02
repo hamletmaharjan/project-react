@@ -14,6 +14,7 @@ import About from './pages/About';
 import Signup from './pages/Signup';
 
 import Header from './components/Header';
+import CreateArticle from './pages/CreateArticle';
 
 const PrivateRoute = ({ component:Component, ...rest }) => {
   let token = localStorage.getItem('token');
@@ -28,6 +29,7 @@ function App() {
     <div className="App">
       <Router>
         <Header />
+        <div className="container">
         <Switch>
           <Route exact path="/login">
             <Login />
@@ -36,8 +38,10 @@ function App() {
             <Signup />
           </Route>
           <PrivateRoute path="/about" component={About}></PrivateRoute>
+          <PrivateRoute path="/articles/create" component={CreateArticle}></PrivateRoute>
           <PrivateRoute path="/" component={Home}></PrivateRoute>
         </Switch>
+        </div>
       </Router>
     </div>
   );

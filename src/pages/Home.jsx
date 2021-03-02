@@ -7,6 +7,8 @@ import {
     Redirect
   } from "react-router-dom";
 
+import ArticleItem from '../components/ArticleItem.jsx';
+
 function Home() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(0);
@@ -24,17 +26,17 @@ function Home() {
 
     return (
        
-                <div className="content">
+                <div className="container">
                     <div className="list-wrapper">
-                        <ul className="list">
+                        <div class="card-deck">
                             {
                                 articles.map((article, index) => {
-                                
-                                    return <li key={article.id}><h1>{article.title}</h1></li>
+                                    return <ArticleItem article={article}/>
+                                    // return <li key={article.id}><h1>{article.title}</h1></li>
                                 
                                 })
                             }
-                        </ul>
+                        </div>
                     </div>
                 </div>
             
