@@ -18,7 +18,7 @@ function Home() {
         fetch('http://localhost:8848/api/articles')
         .then(res => res.json())
         .then(data=> {
-            console.log(data);
+            
             setArticles(data.data);
             setIsLoading(false);
         })
@@ -31,7 +31,7 @@ function Home() {
                         <div class="card-deck">
                             {
                                 articles.map((article, index) => {
-                                    return <ArticleItem article={article}/>
+                                    return <ArticleItem key={index} article={article}/>
                                     // return <li key={article.id}><h1>{article.title}</h1></li>
                                 
                                 })

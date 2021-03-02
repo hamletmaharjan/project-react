@@ -43,7 +43,7 @@ function Header(props) {
                 <div class="nav-item dropdown">
                     {/* <!-- <router-link class="nav-link" to=""><img src="../assets/lady.png" height="30px" width="30px"></router-link> --> */}
 
-                    <Link class="nav-link dropdown-toggle" to="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src={userImg} height="30px" width="30px"/>
                     </Link>
                     
@@ -51,7 +51,7 @@ function Header(props) {
                         <Link class="dropdown-item" to="myProfileLink">My Profile</Link>
                         <Link class="dropdown-item" to="/settings">Settings</Link>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" onClick={handleLogout} >Logout</a>
+                        <Link class="dropdown-item" onClick={handleLogout} >Logout</Link>
                     </div>
 
                 </div>
