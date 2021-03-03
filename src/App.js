@@ -7,6 +7,8 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -18,6 +20,9 @@ import CreateArticle from './pages/CreateArticle';
 import ShowArticle from './pages/ShowArticle';
 import EditArticle from './pages/EditArticle';
 
+import { connect } from 'react-redux';
+import { login, logout } from './actions/authAction';
+
 const PrivateRoute = ({ component:Component, ...rest }) => {
   let token = localStorage.getItem('token');
   // token = false;
@@ -26,12 +31,42 @@ const PrivateRoute = ({ component:Component, ...rest }) => {
   )} />
 }
 
-function App() {
+function App(props) {
   // let {id} = useParams();
+  useEffect(() => {
+    let token = localStorage.getItem('token');
+    let userInfo = JSON.parse(localStorage.getItem('user'));
+    if(token && userInfo){
+      let url = 'http://localhost:8848/api/users/' + userInfo.id;
+      axios.get(url,
+          {
+          headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/json',
+              'Authorization': token
+          }
+      })
+      .then(function (response) {
+        console.log(response);
+        response.data.data.token = token;
+        props.login(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+    else{
+      props.logout();
+    }
+    
+    
+  },[]);
+
   return (
     <div className="App">
       <Router>
-        <Header />
+        {props.authState.isLoggedIn &&
+        <Header />}
         <div className="container">
         <Switch>
           <Route exact path="/login">
@@ -53,4 +88,21 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    authState: state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (auth) => dispatch(login(auth)),
+    logout: () => dispatch(logout())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

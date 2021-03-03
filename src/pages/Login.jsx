@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
-function Login (){
+import { connect } from 'react-redux';
+import { login, logout } from '../actions/authAction';
+
+function Login (props){
+	const history = useHistory();
 
 	
 	const [email, setEmail] = useState('');
@@ -44,6 +48,10 @@ function Login (){
 				username: response.data.username
 			}
 			localStorage.setItem('user', JSON.stringify(userInfo));
+			props.login(response.data);
+			console.log(history);
+			history.push('/');
+			
 			// localStorage.setItem('user', )
 		  })
 		  .catch(function (error) {
@@ -75,4 +83,18 @@ function Login (){
 }
 
 
-export default Login;
+
+
+const mapStateToProps = (state) => {
+	return {
+	  authState: state
+	}
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+	return {
+	  login: (auth) => dispatch(login(auth))
+	}
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Login);
