@@ -1,11 +1,10 @@
 
 import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import {  useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from "react-router-dom";
 
@@ -28,14 +27,12 @@ import './App.css';
 
 const PrivateRoute = ({ component:Component, ...rest }) => {
   let token = localStorage.getItem('token');
-  // token = false;
   return <Route {...rest} render={(props)=> (
     token ? <Component {...props} /> : <Redirect to='/login' />
   )} />
 }
 
 function App(props) {
-  // let {id} = useParams();
   useEffect(() => {
     let token = authService.getAccessToken();
     let userInfo = authService.getUserInfo();

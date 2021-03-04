@@ -24,49 +24,42 @@ export const get = (url, { params = {}, accessToken =  true, responseType = 'jso
 
 
 export const post = (url, { params = {}, body = {}, accessToken = true, headers = {} } = {}) => {
-    const authHeaders = {};
-    if (accessToken) {
-      authHeaders.Authorization = authService.getAccessToken();
-    }
-    return instance({
-      url,
-      params,
-      data: body,
-      method: 'POST',
-      headers: { ...authHeaders, ...headers },
-    }).then((response) => response.data);
-  };
+  const authHeaders = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
+  return instance({
+    url,
+    params,
+    data: body,
+    method: 'POST',
+    headers: { ...authHeaders, ...headers },
+  }).then((response) => response.data);
+};
 
-  export const put = (url, { params = {}, body = {}, accessToken = true, headers = {} } = {}) => {
-    const authHeaders = {};
-    if (accessToken) {
-      authHeaders.Authorization = authService.getAccessToken();
-    }
-    return instance({
-      url,
-      params,
-      data: body,
-      method: 'PUT',
-      headers: { ...authHeaders, ...headers },
-    }).then((response) => response.data);
-  };
+export const put = (url, { params = {}, body = {}, accessToken = true, headers = {} } = {}) => {
+  const authHeaders = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
+  return instance({
+    url,
+    params,
+    data: body,
+    method: 'PUT',
+    headers: { ...authHeaders, ...headers },
+  }).then((response) => response.data);
+};
 
-  export const remove = (url, { params = {}, accessToken = true, headers = {} } = {}) => {
-    const authHeaders = {};
-    if (accessToken) {
-      authHeaders.Authorization = authService.getAccessToken();
-    }
-    return instance({
-      url,
-      params,
-      method: 'DELETE',
-      headers: { ...authHeaders, ...headers },
-    }).then((response) => response.data);
-  };
-
-  // export default {
-  //   get,
-  //   put,
-  //   post,
-  //   delete: remove,
-  // };
+export const remove = (url, { params = {}, accessToken = true, headers = {} } = {}) => {
+  const authHeaders = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
+  return instance({
+    url,
+    params,
+    method: 'DELETE',
+    headers: { ...authHeaders, ...headers },
+  }).then((response) => response.data);
+};

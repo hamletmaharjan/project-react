@@ -1,23 +1,18 @@
 import { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
-
 import { connect } from 'react-redux';
-import { login, logout } from '../actions/authAction';
 
+import { login } from '../actions/authAction';
 import * as userService from '../services/user';
 
 function Login (props){
 	const history = useHistory();
-
-	
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	const handleChange = (event) => {
-		
 		let name = event.target.name;
-		// console.log(name);
-    	let val = event.target.value;
+    let val = event.target.value;
 		switch(name) {
 			case 'email':
 				setEmail(val);
@@ -32,12 +27,9 @@ function Login (props){
 	}
 
 	const handleSubmit = (e)=> {
-		console.log(email, password);
 		e.preventDefault();
-
 		userService.login({email: email, password: password})
 		.then((response) => {
-			console.log(response);
 			localStorage.setItem('token', response.token);
 			let userInfo = {
 				id: response.id,
@@ -46,74 +38,43 @@ function Login (props){
 			}
 			localStorage.setItem('user', JSON.stringify(userInfo));
 			props.login(response);
-			console.log(history);
 			history.push('/');
-			
-		  })
-		  .catch(function (error) {
+		})
+		.catch(function (error) {
 			console.log(error);
-		  });
+		});
 
-		// axios.post('http://localhost:8848/api/auth/login', {
-		// 	email: email,
-		// 	password: password
-		//   })
-		//   .then(function (response) {
-		// 	console.log(response);
-		// 	localStorage.setItem('token', response.data.token);
-		// 	let userInfo = {
-		// 		id: response.data.id,
-		// 		name: response.data.name,
-		// 		username: response.data.username
-		// 	}
-		// 	localStorage.setItem('user', JSON.stringify(userInfo));
-		// 	props.login(response.data);
-		// 	console.log(history);
-		// 	history.push('/');
-			
-		// 	// localStorage.setItem('user', )
-		//   })
-		//   .catch(function (error) {
-		// 	console.log(error);
-		//   });
 	} 
 
 	return (
 		<div>
-            <form  onSubmit={handleSubmit}>
-                
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
-                    {/* <small  class="form-text text-muted">We'll never share your email with anyone else.</small> */}
-                </div>
-               
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
-                </div>
-                <input type="submit" className="btn btn-primary" value="Login" />
-				<Link className="btn btn-success" to="/signup">Signup</Link>
-                {/* <button type="submit" >Create</button> */}
-            </form>
-        
+      <form  onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email address</label>
+          <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
         </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
+        </div>
+        <input type="submit" className="btn btn-primary" value="Login" />
+        <Link className="btn btn-success" style={{marginLeft: 15}} to="/signup">Signup</Link>  
+      </form>
+    </div>
 	)
 }
-
-
 
 
 const mapStateToProps = (state) => {
 	return {
 	  authState: state
 	}
-  }
+}
   
-  const mapDispatchToProps = (dispatch) => {
-	return {
-	  login: (auth) => dispatch(login(auth))
-	}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (auth) => dispatch(login(auth))
   }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Login);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
