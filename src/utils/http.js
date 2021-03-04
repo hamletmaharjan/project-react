@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as authService from "../services/auth";
 
-const baseURL = "http://127.0.0.1:8848/api";
+const baseURL = process.env.REACT_APP_API_BASE_URL || '/api';
 
 const instance = axios.create({
   baseURL: baseURL,

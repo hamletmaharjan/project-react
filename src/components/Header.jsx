@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, NavLink } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import userImg from '../assets/user.png';
@@ -25,11 +25,11 @@ function Header(props) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                  <Link className="nav-link" to="/">Home</Link>
+              <li className="nav-item">
+                  <NavLink className="nav-link" to="/" exact>Home</NavLink>
               </li>
               <li className="nav-item">
-                  <Link className="nav-link" to="/about">About</Link>
+                  <NavLink className="nav-link" to="/about">About</NavLink>
               </li>
             </ul>
 

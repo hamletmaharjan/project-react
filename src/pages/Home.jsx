@@ -11,7 +11,6 @@ function Home() {
     // setIsLoading(true);
     articleService.fetchArticles()
     .then(data=> {
-        console.log(data);
         setArticles(data.data);
         // setIsLoading(false);
     })

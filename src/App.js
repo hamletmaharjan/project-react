@@ -20,17 +20,19 @@ import Header from './components/Header';
 import { login, logout } from './actions/authAction';
 import * as authService from './services/auth';
 import * as userService from './services/user';
+import ROUTES from './constants/routes';
+import PrivateRoute from './privateRoute';
 
 import './public.js';
 import './App.css';
 
 
-const PrivateRoute = ({ component:Component, ...rest }) => {
-  let token = localStorage.getItem('token');
-  return <Route {...rest} render={(props)=> (
-    token ? <Component {...props} /> : <Redirect to='/login' />
-  )} />
-}
+// const PrivateRoute = ({ component:Component, ...rest }) => {
+//   let token = localStorage.getItem('token');
+//   return <Route {...rest} render={(props)=> (
+//     token ? <Component {...props} /> : <Redirect to='/login' />
+//   )} />
+// }
 
 function App(props) {
   useEffect(() => {
@@ -62,18 +64,14 @@ function App(props) {
         <Header />}
         <div className="container">
         <Switch>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
-          <PrivateRoute path="/about" component={About}></PrivateRoute>
-          <PrivateRoute path="/articles/create" component={CreateArticle}></PrivateRoute>
-          <PrivateRoute path="/articles/:id/edit" component={EditArticle}></PrivateRoute>
-          <PrivateRoute path="/articles/:id" component={ShowArticle}></PrivateRoute>
+          <Route exact path="/login" component={Login}/>
+          <Route exact path="/signup" component={Signup}/>
+          <PrivateRoute exact path={ROUTES.ABOUT} component={About}/>
+          <PrivateRoute exact path={ROUTES.CREATE_ARTICLE} component={CreateArticle}/>
+          <PrivateRoute exact path={ROUTES.EDIT_ARTICLE} component={EditArticle}/>
+          <PrivateRoute exact path={ROUTES.SHOW_ARTICLE} component={ShowArticle}/>
           
-          <PrivateRoute path="/" component={Home}></PrivateRoute>
+          <PrivateRoute path={ROUTES.HOME} component={Home}/>
         </Switch>
         </div>
       </Router>
