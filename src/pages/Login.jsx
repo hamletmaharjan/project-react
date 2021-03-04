@@ -6,6 +6,8 @@ import {Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login, logout } from '../actions/authAction';
 
+import * as userService from '../services/user';
+
 function Login (props){
 	const history = useHistory();
 
@@ -35,28 +37,47 @@ function Login (props){
 		console.log(email, password);
 		e.preventDefault();
 
-		axios.post('http://localhost:8848/api/auth/login', {
-			email: email,
-			password: password
-		  })
-		  .then(function (response) {
+		userService.login({email: email, password: password})
+		.then((response) => {
 			console.log(response);
-			localStorage.setItem('token', response.data.token);
+			localStorage.setItem('token', response.token);
 			let userInfo = {
-				id: response.data.id,
-				name: response.data.name,
-				username: response.data.username
+				id: response.id,
+				name: response.name,
+				username: response.username
 			}
 			localStorage.setItem('user', JSON.stringify(userInfo));
-			props.login(response.data);
+			props.login(response);
 			console.log(history);
 			history.push('/');
 			
-			// localStorage.setItem('user', )
 		  })
 		  .catch(function (error) {
 			console.log(error);
 		  });
+
+		// axios.post('http://localhost:8848/api/auth/login', {
+		// 	email: email,
+		// 	password: password
+		//   })
+		//   .then(function (response) {
+		// 	console.log(response);
+		// 	localStorage.setItem('token', response.data.token);
+		// 	let userInfo = {
+		// 		id: response.data.id,
+		// 		name: response.data.name,
+		// 		username: response.data.username
+		// 	}
+		// 	localStorage.setItem('user', JSON.stringify(userInfo));
+		// 	props.login(response.data);
+		// 	console.log(history);
+		// 	history.push('/');
+			
+		// 	// localStorage.setItem('user', )
+		//   })
+		//   .catch(function (error) {
+		// 	console.log(error);
+		//   });
 	} 
 
 	return (

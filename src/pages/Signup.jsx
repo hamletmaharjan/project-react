@@ -58,20 +58,20 @@ function Signup() {
             <form  onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Name</label>
-                    <input type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={handleChange}/>
+                    <input type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={handleChange} required/>
                 </div>
                 <div class="form-group">
                     <label>Email address</label>
-                    <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
+                    <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange} required/>
                     <small  class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div className="form-group">
                     <label>Username</label>
-                    <input type="text" className="form-control" name="username" placeholder="Enter Username" onChange={handleChange}/>
+                    <input type="text" className="form-control" name="username" placeholder="Enter Username" onChange={handleChange} required/>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
+                    <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange} required/>
                 </div>
                 <input type="submit" className="btn btn-primary" value="Submit" />
                 {/* <button type="submit" >Create</button> */}

@@ -1,5 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,21 +9,21 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
-import Login from './pages/Login';
 import Home from './pages/Home';
+import Login from './pages/Login';
 import About from './pages/About';
 import Signup from './pages/Signup';
-
-import Header from './components/Header';
-import CreateArticle from './pages/CreateArticle';
 import ShowArticle from './pages/ShowArticle';
 import EditArticle from './pages/EditArticle';
+import CreateArticle from './pages/CreateArticle';
+import Header from './components/Header';
 
-import { connect } from 'react-redux';
 import { login, logout } from './actions/authAction';
+
+import './public.js';
+import './App.css';
+
 
 const PrivateRoute = ({ component:Component, ...rest }) => {
   let token = localStorage.getItem('token');

@@ -8,6 +8,8 @@ import {
 import userImg from '../assets/user.png';
 import {useEffect} from 'react';
 
+import { connect } from 'react-redux';
+import { logout } from '../actions/authAction';
 
 
 function Header(props) {
@@ -16,6 +18,7 @@ function Header(props) {
     const handleLogout = (e)=> {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        props.logout();
         console.log(history);
         history.push('/login');
     }
@@ -65,4 +68,17 @@ function Header(props) {
     )
 }
 
-export default Header;
+// export default Header;
+const mapStateToProps = (state) => {
+	return {
+	  authState: state
+	}
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+	return {
+        logout: () => dispatch(logout())
+	}
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Header);
