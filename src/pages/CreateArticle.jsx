@@ -1,7 +1,10 @@
-import {useState, useEffect } from 'react';
-import axios from 'axios';
+import {useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import * as articleService from '../services/article';
 
 function CreateArticle() {
+    let history = useHistory();
     const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
@@ -30,28 +33,19 @@ function CreateArticle() {
 	const handleSubmit = (e)=> {
 		// console.log(image);
 		e.preventDefault();
-        let token = localStorage.getItem('token');
-        let userInfo = JSON.parse(localStorage.getItem('user'));
-        console.log(userInfo);
-        let url = 'http://localhost:8848/api/users/' + userInfo.id + '/articles';
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
         formData.append('image', image, image.name);
 
-        axios.post(url,formData,
-            {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json',
-                'Authorization': token
-            }
-        }).then(function (response) {
+        articleService.createArticle(formData)
+        .then(function (response) {
 			console.log(response);
+            history.push('/');
 		  })
 		  .catch(function (error) {
 			console.log(error);
-		  });;
+		  });
 
 	} 
 

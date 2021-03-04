@@ -1,8 +1,11 @@
 import {useState, useEffect } from 'react';
 import axios from 'axios';
-import {useParams} from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+
+import * as articleService from '../services/article';
 
 function EditArticle() {
+    let history = useHistory();
     const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
@@ -13,12 +16,9 @@ function EditArticle() {
     // let user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
-        fetch('http://localhost:8848/api/articles/' + id)
-        .then(res => res.json())
+        articleService.fetchArticle(id)
         .then(data=> {
-            console.log(data);
             setArticle(data.data);
-            
             setTitle(data.data.title);
             setDescription(data.data.description);
             // setIsLoading(false);
@@ -60,15 +60,10 @@ function EditArticle() {
         if(image)
             formData.append('image', image, image.name);
 
-        axios.put(url,formData,
-            {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json',
-                'Authorization': token
-            }
-        }).then(function (response) {
+        articleService.updateArticle(id, formData)
+        .then(function (response) {
 			console.log(response);
+            history.push('/articles/'+ article.id);
 		  })
 		  .catch(function (error) {
 			console.log(error);
@@ -89,7 +84,7 @@ function EditArticle() {
                     <textarea className="form-control" name="description" rows="3" value={description} onChange={handleChange}></textarea>
                 </div>
                 <div className="custom-file">
-                    <input type="file" className="custom-file-input" name="image" onChange={handleChange}/>
+                    <input type="file" className="custom-file-input" name="image" onChange={handleChange} required/>
                     <label className="custom-file-label">Choose Image</label>
                 </div>
                 <input type="submit" className="btn btn-primary" value="Submit" />

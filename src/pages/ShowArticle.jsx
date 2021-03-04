@@ -1,18 +1,19 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ArticleItem from '../components/ArticleItem';
 import axios from 'axios';
+import * as articleService from '../services/article';
 
 function ShowArticle() {   
     let { id } = useParams(); 
+    let history = useHistory();
 
     const [article, setArticle] = useState('');
     let user = JSON.parse(localStorage.getItem('user'));
     let editLink = '/articles/' + article.id + '/edit';
 
     useEffect(() => {
-        fetch('http://localhost:8848/api/articles/' + id)
-        .then(res => res.json())
+        articleService.fetchArticle(id)
         .then(data=> {
             console.log(data);
             setArticle(data.data);
@@ -22,19 +23,10 @@ function ShowArticle() {
     },[]);
 
     const handleDelete = (e)=> {
-        let token = localStorage.getItem('token');
-        let userInfo = JSON.parse(localStorage.getItem('user'));
-        console.log(userInfo);
-        let url = 'http://localhost:8848/api/users/' + userInfo.id + '/articles/' + article.id;
-        axios.delete(url,
-            {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json',
-                'Authorization': token
-            }
-        }).then(function (response) {
+        articleService.deleteArticle(id)
+        .then(function (response) {
 			console.log(response);
+            history.push('/');
 		  })
 		  .catch(function (error) {
 			console.log(error);
@@ -51,8 +43,7 @@ function ShowArticle() {
                         <Link to={editLink} className="btn btn-secondary">Edit</Link>
                         <Link className="btn btn-danger" onClick={handleDelete}>Delete</Link>
                     </div>
-                    
-                // <Link className="btn btn-success" to="/signup">Signup</Link>
+                  
                 }
 
             </div>

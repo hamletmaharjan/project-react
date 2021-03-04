@@ -1,8 +1,12 @@
-import {useState, useEffect } from 'react';
-import axios from 'axios';
+import {useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import * as userService from '../services/user';
 
 
 function Signup() {
+
+    let history = useHistory();
 
     const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -36,8 +40,7 @@ function Signup() {
 	const handleSubmit = (e)=> {
 		// console.log(image);
 		e.preventDefault();
-        let url = 'http://localhost:8848/api/auth/signup';
-        axios.post(url, {
+        userService.register({
             name: name,
             username: username,
 			email: email,
@@ -45,6 +48,7 @@ function Signup() {
 		  })
 		  .then(function (response) {
 			console.log(response);
+            history.push('/login');
 		  })
 		  .catch(function (error) {
 			console.log(error);

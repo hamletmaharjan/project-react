@@ -6,13 +6,13 @@ function ArticleItem(props) {
     const articleLink = '/articles/' + props.article.id;
     return (
        <div className="card">
-           <img src={imgLink} class="card-img-top" alt="..." />
-            <div class="card-body">
-            <Link to={articleLink}><h5 class="card-title">{props.article.title}</h5></Link>
-            <p class="card-text">{props.article.description}</p>
+           <img src={imgLink} className="card-img-top" alt="..." />
+            <div className="card-body">
+            <Link to={articleLink}><h5 className="card-title">{props.article.title}</h5></Link>
+            <p className="card-text">{props.article.description}</p>
             </div>
-            <div class="card-footer">
-            <small class="text-muted">Created at {props.article.created_at}</small>
+            <div className="card-footer">
+            <small className="text-muted">Created at {props.article.created_at}</small>
             </div>
        </div>
     )

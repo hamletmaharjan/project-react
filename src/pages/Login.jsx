@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
-
 import {Link, useHistory} from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -84,13 +82,13 @@ function Login (props){
 		<div>
             <form  onSubmit={handleSubmit}>
                 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Email address</label>
                     <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
                     {/* <small  class="form-text text-muted">We'll never share your email with anyone else.</small> */}
                 </div>
                
-                <div class="form-group">
+                <div className="form-group">
                     <label>Password</label>
                     <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
                 </div>

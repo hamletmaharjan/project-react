@@ -20,6 +20,7 @@ import CreateArticle from './pages/CreateArticle';
 import Header from './components/Header';
 
 import { login, logout } from './actions/authAction';
+import * as authService from './services/auth';
 
 import './public.js';
 import './App.css';
@@ -55,6 +56,8 @@ function App(props) {
       })
       .catch(function (error) {
         console.log(error);
+        props.logout();
+        authService.clearLocalAuth();
       });
     }
     else{

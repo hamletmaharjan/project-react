@@ -1,37 +1,33 @@
 import React, { useEffect, useState } from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect
-  } from "react-router-dom";
 
 import ArticleItem from '../components/ArticleItem.jsx';
+import * as articleService from '../services/article';
 
 function Home() {
     const [articles, setArticles] = useState([]);
-    const [isLoading, setIsLoading] = useState(0);
+    // const [isLoading, setIsLoading] = useState(0);
 
     useEffect(() => {
-        setIsLoading(true);
-        fetch('http://localhost:8848/api/articles')
-        .then(res => res.json())
+        // setIsLoading(true);
+        
+        articleService.fetchArticles()
         .then(data=> {
-            
+            console.log(data);
             setArticles(data.data);
-            setIsLoading(false);
+            // setIsLoading(false);
         })
     },[]);
 
     return (
        
         <div className="container">
-            <div className="list-wrapper">
-                <div class="card-deck">
+            <div className="row">
+                <div className="card-deck">
                     {
                         articles.map((article, index) => {
-                            return <ArticleItem key={index} article={article}/>
+                            return (
+                                <div key={index} className="col-sm-4">
+                            <ArticleItem article={article}/></div>)
                             // return <li key={article.id}><h1>{article.title}</h1></li>
                         
                         })

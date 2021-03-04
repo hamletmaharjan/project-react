@@ -1,7 +1,7 @@
 import * as http from "../utils/http";
 
 export const register = (userInfo) => {
-  http.post("auth/register", { body: userInfo });
+  return http.post("auth/signup", { body: userInfo });
 };
 
 export const login = (userInfo) => {
