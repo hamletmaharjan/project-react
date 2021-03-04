@@ -1,7 +1,6 @@
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ArticleItem from '../components/ArticleItem';
-import axios from 'axios';
 import * as articleService from '../services/article';
 
 function ShowArticle() {   

@@ -1,5 +1,4 @@
 
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import {
@@ -21,6 +20,7 @@ import Header from './components/Header';
 
 import { login, logout } from './actions/authAction';
 import * as authService from './services/auth';
+import * as userService from './services/user';
 
 import './public.js';
 import './App.css';
@@ -37,22 +37,14 @@ const PrivateRoute = ({ component:Component, ...rest }) => {
 function App(props) {
   // let {id} = useParams();
   useEffect(() => {
-    let token = localStorage.getItem('token');
-    let userInfo = JSON.parse(localStorage.getItem('user'));
+    let token = authService.getAccessToken();
+    let userInfo = authService.getUserInfo();
     if(token && userInfo){
-      let url = 'http://localhost:8848/api/users/' + userInfo.id;
-      axios.get(url,
-          {
-          headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              'Content-Type': 'application/json',
-              'Authorization': token
-          }
-      })
+      userService.validateToken()
       .then(function (response) {
-        console.log(response);
-        response.data.data.token = token;
-        props.login(response.data.data);
+        // console.log(response);
+        response.data.token = token;
+        props.login(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -63,7 +55,6 @@ function App(props) {
     else{
       props.logout();
     }
-    
     
   },[]);
 

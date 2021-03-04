@@ -1,5 +1,4 @@
 import {useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 
 import * as articleService from '../services/article';
