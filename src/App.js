@@ -1,11 +1,9 @@
-
 import { connect } from 'react-redux';
 import {  useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 
 import Home from './pages/Home';
@@ -22,19 +20,13 @@ import * as authService from './services/auth';
 import * as userService from './services/user';
 import ROUTES from './constants/routes';
 import PrivateRoute from './privateRoute';
+import { addArticles } from './actions/articleAction';
 
 // import 'bootstrap';
 
 import './public.js';
 import './App.css';
 
-
-// const PrivateRoute = ({ component:Component, ...rest }) => {
-//   let token = localStorage.getItem('token');
-//   return <Route {...rest} render={(props)=> (
-//     token ? <Component {...props} /> : <Redirect to='/login' />
-//   )} />
-// }
 
 function App(props) {
   useEffect(() => {
@@ -87,14 +79,14 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    authState: state
+    authState: state.authReducer
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (auth) => dispatch(login(auth)),
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
   }
 }
 

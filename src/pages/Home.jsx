@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { connect } from 'react-redux';
 
 import ArticleItem from '../components/ArticleItem.jsx';
 import * as articleService from '../services/article';
+import { addArticles } from '../actions/articleAction';
 
-function Home() {
+function Home(props) {
   const [articles, setArticles] = useState([]);
   // const [isLoading, setIsLoading] = useState(0);
 
@@ -12,6 +14,7 @@ function Home() {
     articleService.fetchArticles()
     .then(data=> {
         setArticles(data.data);
+        props.addArticles(data.data);
         // setIsLoading(false);
     })
   },[]);
@@ -37,4 +40,19 @@ function Home() {
 }
 
 
-export default Home;
+// export default Home;
+
+
+const mapStateToProps = (state) => {
+  return {
+    articles: state.articleReducer.articles
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addArticles: (articles) => dispatch(addArticles(articles))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

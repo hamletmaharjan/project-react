@@ -20,7 +20,6 @@ function EditArticle() {
         setTitle(data.data.title);
         setDescription(data.data.description);
     })
-    console.log(id);
   },[]);
 
 	const handleChange = (event) => {
