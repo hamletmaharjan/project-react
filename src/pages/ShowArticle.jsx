@@ -32,13 +32,29 @@ function ShowArticle() {
   if(article){
     return (
       <div>
-        <ArticleItem article={article} />
-        {article.user_id === user.id &&
-          <div>
-            <Link to={editLink} className="btn btn-secondary">Edit</Link>
-            <a className="btn btn-danger" onClick={handleDelete}>Delete</a>
+        <div className="row">
+          <div className="col-sm-2">
+
           </div>
-        }
+          <div className="col-sm-8">
+            <div className="row">
+              <ArticleItem article={article} />
+            </div>
+            <div className="row">
+            {article.user_id === user.id &&
+              <div className="mt-4">
+                <Link to={editLink} className="btn btn-secondary">Edit</Link>
+                <a className="btn btn-danger" style={{marginLeft: 15}} onClick={handleDelete}>Delete</a>
+              </div>
+            }
+            </div>
+          </div>
+          <div className="col-sm-2">
+            
+          </div>
+        </div>
+        {/* <ArticleItem article={article} /> */}
+        
       </div> 
     )
   }

@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import moment from 'moment';
 
 function ArticleItem(props) {
   const imgLink = 'http://localhost:8848' + props.article.image;
@@ -12,7 +13,7 @@ function ArticleItem(props) {
         <p className="card-text">{props.article.description}</p>
       </div>
       <div className="card-footer">
-        <small className="text-muted">Created at {props.article.created_at}</small>
+        <small className="text-muted">Created {moment(props.article.created_at).fromNow()}</small>
       </div>
     </div>
   )

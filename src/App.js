@@ -23,6 +23,8 @@ import * as userService from './services/user';
 import ROUTES from './constants/routes';
 import PrivateRoute from './privateRoute';
 
+// import 'bootstrap';
+
 import './public.js';
 import './App.css';
 

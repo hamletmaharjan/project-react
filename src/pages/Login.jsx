@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
+import iziToast from 'izitoast';
 
 import { login } from '../actions/authAction';
 import * as userService from '../services/user';
@@ -42,25 +43,37 @@ function Login (props){
 		})
 		.catch(function (error) {
 			console.log(error);
+      iziToast.error({
+        title: 'Error',
+        message: 'Login Failed',
+      });
 		});
 
 	} 
 
 	return (
-		<div>
-      <form  onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email address</label>
-          <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-        <Link className="btn btn-success" style={{marginLeft: 15}} to="/signup">Signup</Link>  
-      </form>
+    <div className="row">
+      <div className="col-sm-3">
+      </div>
+      <div className="col-sm-6 mt-4">
+        <form  onSubmit={handleSubmit} className="py-4 px-4 cool">
+          <div className="form-group">
+            <label>Email address</label>
+            <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
+          </div>
+          <input type="submit" className="btn btn-primary" value="Login" />
+          <Link className="btn btn-success" style={{marginLeft: 15}} to="/signup">Signup</Link>  
+        </form>
+        
+      </div>
+      <div className="col-sm-3">
+      </div>
     </div>
+     
 	)
 }
 

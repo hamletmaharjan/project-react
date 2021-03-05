@@ -51,27 +51,33 @@ function Signup() {
 
 
   return (
-    <div>
-      <form  onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name</label>
-          <input type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={handleChange} required/>
-        </div>
-        <div className="form-group">
-          <label>Email address</label>
-          <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange} required/>
-          <small  className="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div className="form-group">
-          <label>Username</label>
-          <input type="text" className="form-control" name="username" placeholder="Enter Username" onChange={handleChange} required/>
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange} required/>
-        </div>
-        <input type="submit" className="btn btn-primary" value="Signup" />
-      </form>
+    <div className="row">
+      <div className="col-sm-3">
+      </div>
+      <div className="col-sm-6 mt-4">
+        <form  onSubmit={handleSubmit} className="py-4 px-4 cool">
+          <div className="form-group">
+            <label>Name</label>
+            <input type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={handleChange} required/>
+          </div>
+          <div className="form-group">
+            <label>Email address</label>
+            <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange} required/>
+            <small  className="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div className="form-group">
+            <label>Username</label>
+            <input type="text" className="form-control" name="username" placeholder="Enter Username" onChange={handleChange} required/>
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange} required/>
+          </div>
+          <input type="submit" className="btn btn-primary" value="Signup" />
+        </form>
+      </div>
+      <div className="col-sm-3">
+      </div>
     </div>
   )
 }
