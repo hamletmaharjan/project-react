@@ -11,6 +11,8 @@ function ShowArticle() {
   const [article, setArticle] = useState('');
   let user = JSON.parse(localStorage.getItem('user'));
   let editLink = '/articles/' + article.id + '/edit';
+  const imgLink = 'http://localhost:8848' + article.image;
+  const articleLink = '/articles/' + article.id;
 
   useEffect(() => {
     articleService.fetchArticle(id)
@@ -34,11 +36,12 @@ function ShowArticle() {
       <div>
         <div className="row">
           <div className="col-sm-2">
-
           </div>
           <div className="col-sm-8">
             <div className="row">
-              <ArticleItem article={article} />
+              <h1>{article.title}</h1>
+              <img src={imgLink} className="main-img" alt="article"/>
+              <p className="fs-2 mt-4 fw-bold">{article.description}</p>
             </div>
             <div className="row">
             {article.user_id === user.id &&
@@ -50,11 +53,8 @@ function ShowArticle() {
             </div>
           </div>
           <div className="col-sm-2">
-            
           </div>
         </div>
-        {/* <ArticleItem article={article} /> */}
-        
       </div> 
     )
   }

@@ -39,9 +39,6 @@ function Header(props) {
               </Link>
               
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                {/* <Link className="dropdown-item" to="myProfileLink">My Profile</Link>
-                <Link className="dropdown-item" to="/settings">Settings</Link> */}
-                {/* <div className="dropdown-divider"></div> */}
                 <a className="dropdown-item" onClick={handleLogout} >Logout</a>
               </div>
             </div>
