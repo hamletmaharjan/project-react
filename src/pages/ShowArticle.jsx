@@ -2,13 +2,14 @@ import { useParams, Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import * as articleService from '../services/article';
+import * as authService from '../services/auth';
 
 function ShowArticle() {   
   let { id } = useParams(); 
   let history = useHistory();
 
   const [article, setArticle] = useState('');
-  let user = JSON.parse(localStorage.getItem('user'));
+  let user = authService.getUserInfo();
   let editLink = '/articles/' + article.id + '/edit';
   const imgLink = 'http://localhost:8848' + article.image;
 

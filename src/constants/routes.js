@@ -8,4 +8,5 @@ const routes = {
   SHOW_ARTICLE: '/articles/:id',
   HOME: '/'
 }
+
 export default routes;

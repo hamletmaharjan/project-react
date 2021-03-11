@@ -11,11 +11,5 @@ export const login = (userInfo) => {
 
 export const validateToken = () => {
   let user = authService.getUserInfo();
-  return http.get('/users/' + user.id, 
-  {
-    headers:{
-      'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/json'
-    },
-  });
+  return http.get('/users/' + user.id);
 };

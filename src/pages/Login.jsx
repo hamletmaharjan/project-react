@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { login } from '../actions/authAction';
 import * as userService from '../services/user';
+import * as authService from '../services/auth';
 
 function Login (props){
 	const history = useHistory();
@@ -30,7 +31,7 @@ function Login (props){
 		e.preventDefault();
 		userService.login({email: email, password: password})
 		.then((response) => {
-			localStorage.setItem('token', response.token);
+      authService.setAccessToken(response.token);
 			let userInfo = {
 				id: response.id,
 				name: response.name,

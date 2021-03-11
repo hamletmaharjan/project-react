@@ -8,6 +8,10 @@ export const getUserInfo = () => {
   return user;
 }
 
+export const setAccessToken = (token) => {
+  localStorage.setItem('token', token);
+}
+
 export const clearLocalAuth = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
