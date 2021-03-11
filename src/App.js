@@ -1,11 +1,9 @@
-
 import { connect } from 'react-redux';
 import {  useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 
 import Home from './pages/Home';
@@ -23,18 +21,8 @@ import * as userService from './services/user';
 import ROUTES from './constants/routes';
 import PrivateRoute from './privateRoute';
 
-// import 'bootstrap';
-
 import './public.js';
 import './App.css';
-
-
-// const PrivateRoute = ({ component:Component, ...rest }) => {
-//   let token = localStorage.getItem('token');
-//   return <Route {...rest} render={(props)=> (
-//     token ? <Component {...props} /> : <Redirect to='/login' />
-//   )} />
-// }
 
 function App(props) {
   useEffect(() => {
@@ -43,7 +31,6 @@ function App(props) {
     if(token && userInfo){
       userService.validateToken()
       .then(function (response) {
-        // console.log(response);
         response.data.token = token;
         props.login(response.data);
       })
@@ -66,13 +53,12 @@ function App(props) {
         <Header />}
         <div className="container">
         <Switch>
-          <Route exact path="/login" component={Login}/>
-          <Route exact path="/signup" component={Signup}/>
+          <Route exact path={ROUTES.LOGIN} component={Login}/>
+          <Route exact path={ROUTES.SIGN_UP} component={Signup}/>
           <PrivateRoute exact path={ROUTES.ABOUT} component={About}/>
           <PrivateRoute exact path={ROUTES.CREATE_ARTICLE} component={CreateArticle}/>
           <PrivateRoute exact path={ROUTES.EDIT_ARTICLE} component={EditArticle}/>
           <PrivateRoute exact path={ROUTES.SHOW_ARTICLE} component={ShowArticle}/>
-          
           <PrivateRoute path={ROUTES.HOME} component={Home}/>
         </Switch>
         </div>

@@ -1,7 +1,6 @@
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import ArticleItem from '../components/ArticleItem';
 import * as articleService from '../services/article';
 
 function ShowArticle() {   
@@ -12,14 +11,13 @@ function ShowArticle() {
   let user = JSON.parse(localStorage.getItem('user'));
   let editLink = '/articles/' + article.id + '/edit';
   const imgLink = 'http://localhost:8848' + article.image;
-  const articleLink = '/articles/' + article.id;
 
   useEffect(() => {
     articleService.fetchArticle(id)
     .then(data=> {
         setArticle(data.data);
     })
-  },[]);
+  },[id]);
 
   const handleDelete = (e)=> {
     articleService.deleteArticle(id)
@@ -47,7 +45,7 @@ function ShowArticle() {
             {article.user_id === user.id &&
               <div className="mt-4">
                 <Link to={editLink} className="btn btn-secondary">Edit</Link>
-                <a className="btn btn-danger" style={{marginLeft: 15}} onClick={handleDelete}>Delete</a>
+                <button className="btn btn-danger" style={{marginLeft: 15}} onClick={handleDelete}>Delete</button>
               </div>
             }
             </div>

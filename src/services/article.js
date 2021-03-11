@@ -15,13 +15,7 @@ export const createArticle = (formData) => {
 };
 
 export const fetchArticles = () => {
-  return http.get('/articles', 
-  {
-    headers:{
-      'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/json'
-    },
-  });
+  return http.get('/articles');
 };
 
 export const fetchArticle = (id) => {

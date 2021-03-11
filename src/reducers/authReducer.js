@@ -13,18 +13,6 @@ const INITIAL_STATE = {
 
 function authReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
-    case authAction.ADD_AUTH:
-      return {
-        auth: action.payload,
-        isLoggedIn: state.isLoggedIn
-      }
-
-    case authAction.UPDATE_AUTH:
-      return {
-        auth: action.payload,
-        isLoggedIn: state.isLoggedIn
-      }
-    
     case authAction.LOGIN:
       return {
         auth: action.payload,

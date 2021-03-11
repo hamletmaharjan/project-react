@@ -39,7 +39,7 @@ function Header(props) {
               </Link>
               
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" onClick={handleLogout} >Logout</a>
+                <button className="dropdown-item" onClick={handleLogout} >Logout</button>
               </div>
             </div>
           <Link className="btn btn-primary" to="/articles/create">Create Article</Link>

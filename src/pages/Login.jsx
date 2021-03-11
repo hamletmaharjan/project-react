@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
-import iziToast from 'izitoast';
 
 import { login } from '../actions/authAction';
 import * as userService from '../services/user';
@@ -43,10 +42,6 @@ function Login (props){
 		})
 		.catch(function (error) {
 			console.log(error);
-      iziToast.error({
-        title: 'Error',
-        message: 'Login Failed',
-      });
 		});
 
 	} 

@@ -20,8 +20,7 @@ function EditArticle() {
         setTitle(data.data.title);
         setDescription(data.data.description);
     })
-    console.log(id);
-  },[]);
+  },[id]);
 
 	const handleChange = (event) => {
 		let name = event.target.name;
