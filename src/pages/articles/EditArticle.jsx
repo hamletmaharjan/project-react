@@ -1,7 +1,7 @@
 import {useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-import * as articleService from '../services/article';
+import * as articleService from '../../services/article';
 
 function EditArticle() {
   let history = useHistory();

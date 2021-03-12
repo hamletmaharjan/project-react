@@ -10,9 +10,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
 import Signup from './pages/Signup';
-import ShowArticle from './pages/ShowArticle';
-import EditArticle from './pages/EditArticle';
-import CreateArticle from './pages/CreateArticle';
+import ShowArticle from './pages/articles/ShowArticle';
+import EditArticle from './pages/articles/EditArticle';
+import CreateArticle from './pages/articles/CreateArticle';
 import Header from './components/Header';
 
 import { login, logout } from './actions/authAction';

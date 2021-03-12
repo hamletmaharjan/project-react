@@ -1,8 +1,8 @@
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import * as articleService from '../services/article';
-import * as authService from '../services/auth';
+import * as articleService from '../../services/article';
+import * as authService from '../../services/auth';
 
 function ShowArticle() {   
   let { id } = useParams(); 

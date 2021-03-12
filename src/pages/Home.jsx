@@ -5,14 +5,11 @@ import * as articleService from '../services/article';
 
 function Home() {
   const [articles, setArticles] = useState([]);
-  // const [isLoading, setIsLoading] = useState(0);
 
   useEffect(() => {
-    // setIsLoading(true);
     articleService.fetchArticles()
     .then(data=> {
         setArticles(data.data);
-        // setIsLoading(false);
     })
   },[]);
 
