@@ -67,9 +67,6 @@ function App(props) {
   );
 }
 
-// export default App;
-
-
 
 const mapStateToProps = (state) => {
   return {

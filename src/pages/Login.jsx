@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { login } from '../actions/authAction';
 import * as userService from '../services/user';
@@ -10,6 +11,7 @@ function Login (props){
 	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
 	const handleChange = (event) => {
 		let name = event.target.name;
@@ -31,6 +33,7 @@ function Login (props){
 		e.preventDefault();
 		userService.login({email: email, password: password})
 		.then((response) => {
+      console.log(response);
       authService.setAccessToken(response.token);
 			let userInfo = {
 				id: response.id,
@@ -42,7 +45,22 @@ function Login (props){
 			history.push('/');
 		})
 		.catch(function (error) {
-			console.log(error);
+			if (error.response) {
+        if(error.response.data){
+          setMessage(error.response.data.message);
+        }
+        if(error.response.status === 500) {
+          toast.error("Internal Server Error", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
+        }
+      } else if (error.request) {
+        toast.error("Server Error", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+      } else {
+        console.log('Error', error.message);
+      }
 		});
 
 	} 
@@ -53,13 +71,16 @@ function Login (props){
       </div>
       <div className="col-sm-6 mt-4">
         <form  onSubmit={handleSubmit} className="py-4 px-4 cool">
+          <div className="text-danger mt-2 mb-3">
+            {message}
+          </div>
           <div className="form-group">
             <label>Email address</label>
-            <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange}/>
+            <input type="email" className="form-control" name="email" placeholder="Enter email" onChange={handleChange} required/>
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange}/>
+            <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange} required/>
           </div>
           <input type="submit" className="btn btn-primary" value="Login" />
           <Link className="btn btn-success" style={{marginLeft: 15}} to="/signup">Signup</Link>  
@@ -68,6 +89,7 @@ function Login (props){
       </div>
       <div className="col-sm-3">
       </div>
+      <ToastContainer />
     </div>
      
 	)

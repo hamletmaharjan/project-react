@@ -72,7 +72,7 @@ function EditArticle() {
           <textarea className="form-control" name="description" rows="3" value={description} onChange={handleChange}></textarea>
         </div>
         <div className="custom-file">
-          <input type="file" className="custom-file-input" name="image" onChange={handleChange} required/>
+          <input type="file" className="custom-file-input" name="image" onChange={handleChange}/>
           <label className="custom-file-label">Choose Image</label>
         </div>
         <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value="Submit" />

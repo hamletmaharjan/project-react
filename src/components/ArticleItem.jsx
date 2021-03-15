@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import moment from 'moment';
 
 function ArticleItem(props) {
-  const imgLink = 'http://localhost:8848' + props.article.image;
+  const imgLink = 'http://localhost:5000' + props.article.image;
   const articleLink = '/articles/' + props.article.id;
 
   return (

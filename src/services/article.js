@@ -1,10 +1,7 @@
 import * as http from "../utils/http";
-import * as authService from "./auth";
 
 export const createArticle = (formData) => {
-  let userInfo = authService.getUserInfo();
-  let url = 'users/' + userInfo.id + '/articles';
-  return http.post(url, 
+  return http.post('/articles', 
   {
     body: formData
   });
@@ -19,17 +16,13 @@ export const fetchArticle = (id) => {
 };
 
 export const updateArticle = (id, formData) => {
-  let userInfo = authService.getUserInfo();
-  let url = 'users/' + userInfo.id + '/articles/' + id;
-  return http.put(url, 
+  return http.put('/articles/' + id, 
   {
     body: formData
   });
 };
 
 export const deleteArticle = (id) => {
-  let userInfo = authService.getUserInfo();
-  let url = 'users/' + userInfo.id + '/articles/' + id;
-  return http.remove(url);
+  return http.remove('/articles/' + id);
 };
 

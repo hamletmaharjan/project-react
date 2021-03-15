@@ -11,7 +11,7 @@ function ShowArticle() {
   const [article, setArticle] = useState('');
   let user = authService.getUserInfo();
   let editLink = '/articles/' + article.id + '/edit';
-  const imgLink = 'http://localhost:8848' + article.image;
+  const imgLink = 'http://localhost:5000' + article.image;
 
   useEffect(() => {
     articleService.fetchArticle(id)
