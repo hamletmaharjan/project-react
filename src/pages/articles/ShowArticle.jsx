@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import * as articleService from '../../services/article';
 import * as authService from '../../services/auth';
+import URLS from '../../constants/urls';
 
 function ShowArticle() {   
   let { id } = useParams(); 
@@ -11,7 +12,7 @@ function ShowArticle() {
   const [article, setArticle] = useState('');
   let user = authService.getUserInfo();
   let editLink = '/articles/' + article.id + '/edit';
-  const imgLink = 'http://localhost:5000' + article.image;
+  const imgLink = URLS.baseUrl + article.image;
 
   useEffect(() => {
     articleService.fetchArticle(id)
