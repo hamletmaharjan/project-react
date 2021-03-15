@@ -22,7 +22,6 @@ import ROUTES from './constants/routes';
 import PrivateRoute from './privateRoute';
 
 import './public.js';
-import './App.css';
 
 function App(props) {
   useEffect(() => {

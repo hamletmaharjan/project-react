@@ -1,7 +1,7 @@
 import { Link, useHistory, NavLink } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import userImg from '../assets/user.png';
+import userImg from '../assets/images/user.png';
 import { logout } from '../actions/authAction';
 
 function Header(props) {
