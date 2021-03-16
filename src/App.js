@@ -14,6 +14,7 @@ import ShowArticle from './pages/articles/ShowArticle';
 import EditArticle from './pages/articles/EditArticle';
 import CreateArticle from './pages/articles/CreateArticle';
 import Header from './components/Header';
+import PageNotFound from './pages/PageNotFound';
 
 import { login, logout } from './actions/authAction';
 import * as authService from './services/auth';
@@ -58,7 +59,8 @@ function App(props) {
           <PrivateRoute exact path={ROUTES.CREATE_ARTICLE} component={CreateArticle}/>
           <PrivateRoute exact path={ROUTES.EDIT_ARTICLE} component={EditArticle}/>
           <PrivateRoute exact path={ROUTES.SHOW_ARTICLE} component={ShowArticle}/>
-          <PrivateRoute path={ROUTES.HOME} component={Home}/>
+          <PrivateRoute exact path={ROUTES.HOME} component={Home}/>
+          <Route component={PageNotFound} />
         </Switch>
         </div>
       </Router>

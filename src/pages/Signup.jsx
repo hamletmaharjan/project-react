@@ -1,5 +1,6 @@
 import {useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 import * as userService from '../services/user';
 
@@ -45,7 +46,13 @@ function Signup() {
       history.push('/login');
 		})
 		.catch(function (error) {
-			console.log(error);
+			if (error.request) {
+        toast.error("Server Error", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+      } else {
+        console.log(error);
+      }
 		});
 	} 
 
@@ -78,6 +85,7 @@ function Signup() {
       </div>
       <div className="col-sm-3">
       </div>
+      <ToastContainer/>
     </div>
   )
 }
