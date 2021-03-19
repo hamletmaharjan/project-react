@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import {Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
+import {Link, useHistory} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { login } from '../actions/authAction';
+
 import * as userService from '../services/user';
 import * as authService from '../services/auth';
+
 
 function Login (props){
 	const history = useHistory();
@@ -14,8 +16,8 @@ function Login (props){
   const [message, setMessage] = useState('');
 
 	const handleChange = (event) => {
-		let name = event.target.name;
-    let val = event.target.value;
+		const name = event.target.name;
+    const val = event.target.value;
 		switch(name) {
 			case 'email':
 				setEmail(val);

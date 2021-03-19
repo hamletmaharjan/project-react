@@ -1,25 +1,37 @@
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { useParams, Link, useHistory } from 'react-router-dom';
 
-import * as articleService from '../../services/article';
 import * as authService from '../../services/auth';
+import * as articleService from '../../services/article';
+
 import URLS from '../../constants/urls';
 
-function ShowArticle() {   
-  let { id } = useParams(); 
-  let history = useHistory();
+import { addArticle } from '../../actions/articleAction';
+
+
+function ShowArticle(props) {   
+  const { id } = useParams(); 
+  const history = useHistory();
 
   const [article, setArticle] = useState('');
-  let user = authService.getUserInfo();
-  let editLink = '/articles/' + article.id + '/edit';
+  const user = authService.getUserInfo();
+  const editLink = '/articles/' + article.id + '/edit';
   const imgLink = URLS.baseUrl + article.image;
 
   useEffect(() => {
-    articleService.fetchArticle(id)
-    .then(data=> {
-        setArticle(data.data);
-    })
-  },[id]);
+    console.log(editLink, imgLink);
+    if(props.article){
+      setArticle(props.article);
+    }
+    else {
+      articleService.fetchArticle(id)
+      .then(data => {
+        props.addArticle(data.data);
+      });
+    }
+    
+  },[id, props]);
 
   const handleDelete = (e)=> {
     articleService.deleteArticle(id)
@@ -62,4 +74,20 @@ function ShowArticle() {
 }
 
 
-export default ShowArticle;
+// export default ShowArticle;
+
+const mapStateToProps = (state, ownProps) => {
+  let id = parseInt(ownProps.match.params.id);
+  console.log(id);
+	return {
+	  article: state.articleReducer.articles.find(article => article.id === id)
+	}
+}
+  
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addArticle: (article) => dispatch(addArticle(article))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowArticle);

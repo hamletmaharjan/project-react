@@ -3,28 +3,33 @@ import {  useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
+  Route
 } from "react-router-dom";
 
 import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
 import Signup from './pages/Signup';
+import PageNotFound from './pages/PageNotFound';
+
 import ShowArticle from './pages/articles/ShowArticle';
 import EditArticle from './pages/articles/EditArticle';
 import CreateArticle from './pages/articles/CreateArticle';
+
 import Header from './components/Header';
-import PageNotFound from './pages/PageNotFound';
+
+
 
 import { login, logout } from './actions/authAction';
 import * as authService from './services/auth';
 import * as userService from './services/user';
 import ROUTES from './constants/routes';
-import PrivateRoute from './privateRoute';
+import PrivateRoute from './routes/privateRoute';
 
 import './public.js';
 
 function App(props) {
+  // const history = useHistory();
   useEffect(() => {
     let token = authService.getAccessToken();
     let userInfo = authService.getUserInfo();
@@ -38,10 +43,12 @@ function App(props) {
         console.log(error);
         props.logout();
         authService.clearLocalAuth();
+        // history.push('/login');
       });
     }
     else{
       props.logout();
+      // history.push('/login');
     }
     
   },[]);
@@ -71,7 +78,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    authState: state
+    authState: state.authReducer
   }
 }
 
