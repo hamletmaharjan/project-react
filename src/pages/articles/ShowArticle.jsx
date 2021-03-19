@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 
 import * as authService from '../../services/auth';
@@ -14,17 +14,10 @@ function ShowArticle(props) {
   const { id } = useParams(); 
   const history = useHistory();
 
-  const [article, setArticle] = useState('');
   const user = authService.getUserInfo();
-  const editLink = '/articles/' + article.id + '/edit';
-  const imgLink = URLS.baseUrl + article.image;
-
+ 
   useEffect(() => {
-    console.log(editLink, imgLink);
-    if(props.article){
-      setArticle(props.article);
-    }
-    else {
+    if(!props.article){
       articleService.fetchArticle(id)
       .then(data => {
         props.addArticle(data.data);
@@ -43,7 +36,9 @@ function ShowArticle(props) {
     });
   }
 
-  if(article){
+  if(props.article){
+    const editLink = '/articles/' + props.article.id + '/edit';
+    const imgLink = URLS.baseUrl + props.article.image;
     return (
       <div>
         <div className="row">
@@ -51,12 +46,12 @@ function ShowArticle(props) {
           </div>
           <div className="col-sm-8">
             <div className="row">
-              <h1>{article.title}</h1>
+              <h1>{props.article.title}</h1>
               <img src={imgLink} className="main-img" alt="article"/>
-              <p className="fs-2 mt-4 fw-bold">{article.description}</p>
+              <p className="fs-2 mt-4 fw-bold">{props.article.description}</p>
             </div>
             <div className="row">
-            {article.user_id === user.id &&
+            {props.article.user_id === user.id &&
               <div className="mt-4">
                 <Link to={editLink} className="btn btn-secondary">Edit</Link>
                 <button className="btn btn-danger" style={{marginLeft: 15}} onClick={handleDelete}>Delete</button>
@@ -78,7 +73,6 @@ function ShowArticle(props) {
 
 const mapStateToProps = (state, ownProps) => {
   let id = parseInt(ownProps.match.params.id);
-  console.log(id);
 	return {
 	  article: state.articleReducer.articles.find(article => article.id === id)
 	}

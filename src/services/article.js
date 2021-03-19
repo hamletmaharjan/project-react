@@ -7,8 +7,9 @@ export const createArticle = (formData) => {
   });
 };
 
-export const fetchArticles = () => {
-  return http.get('/articles');
+export const fetchArticles = async() => {
+  const {data} = await http.get('/articles');
+  return data;
 };
 
 export const fetchArticle = (id) => {

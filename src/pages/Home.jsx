@@ -6,12 +6,20 @@ import * as articleService from '../services/article';
 import { addArticles } from '../actions/articleAction';
 
 function Home(props) {
-  useEffect(() => {
-    articleService.fetchArticles()
-    .then(data=> {
-      props.addArticles(data.data);
-    })
-  },[]);
+  const { addArticles } = props;
+  useEffect(async () => {
+    // articleService.fetchArticles()
+    // .then(articles=> {
+    //   addArticles(articles);
+    // })
+    try {
+      const articles = await articleService.fetchArticles();
+      addArticles(articles);
+
+    }catch(e) {
+      
+    }
+  },[addArticles]);
 
   return (
     <div className="container">

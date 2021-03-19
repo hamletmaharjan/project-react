@@ -1,9 +1,12 @@
-import {useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import * as articleService from '../../services/article';
 
-function EditArticle() {
+import { addArticle, updateArticle } from '../../actions/articleAction';
+
+function EditArticle(props) {
   let history = useHistory();
   const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -11,16 +14,25 @@ function EditArticle() {
 
   let { id } = useParams(); 
 
-  const [article, setArticle] = useState('');
-
   useEffect(() => {
-    articleService.fetchArticle(id)
-    .then(data=> {
-        setArticle(data.data);
-        setTitle(data.data.title);
-        setDescription(data.data.description);
-    })
-  },[id]);
+    // articleService.fetchArticle(id)
+    // .then(data=> {
+    //     setArticle(data.data);
+    //     setTitle(data.data.title);
+    //     setDescription(data.data.description);
+    // })
+    if(props.article){
+      setTitle(props.article.title);
+      setDescription(props.article.description);
+    }
+    else {
+      articleService.fetchArticle(id)
+      .then(data => {
+        props.addArticle(data.data);
+      });
+    }
+    
+  },[id,props]);
 
 	const handleChange = (event) => {
 		let name = event.target.name;
@@ -51,7 +63,8 @@ function EditArticle() {
 
     articleService.updateArticle(id, formData)
     .then(function (response) {
-      history.push('/articles/'+ article.id);
+      props.updateArticle(id, response.data);
+      history.push('/articles/'+ props.article.id);
     })
     .catch(function (error) {
       console.log(error);
@@ -81,4 +94,21 @@ function EditArticle() {
   )
 }
 
-export default EditArticle;
+// export default EditArticle;
+
+const mapStateToProps = (state, ownProps) => {
+  let id = parseInt(ownProps.match.params.id);
+  console.log(id);
+	return {
+	  article: state.articleReducer.articles.find(article => article.id === id)
+	}
+}
+  
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addArticle: (article) => dispatch(addArticle(article)),
+    updateArticle: (id, article) => dispatch(updateArticle(id, article))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditArticle);
